@@ -1,0 +1,62 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+}
+.wrapper.show{
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    transition: .4s cubic-bezier(0.4, 0, 1, 1);
+}
+.wrapper{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    margin: 1rem;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    box-shadow: 0px 3px 10px rgb(0 0 0 / 20%);
+}
+.titulo{
+    margin: 1.4rem 0;
+    color: #525252;
+    border-bottom: 1px solid;
+}
+.formulario-cadastro .btn{
+    float: right;
+    color: #fff;
+}
+
+.menu-opcoes{
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    margin: 1rem;
+}
+.menu-opcoes .btn{
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+    text-transform: uppercase;
+}
+
+.form-control:focus{
+    box-shadow: 0px 1px 6px #86b6fe81;
+}
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus{
+    box-shadow: none;
+}
+.table td span{
+    display: block;
+}
+.table td button{
+    margin: .5rem;
+}
+.material-symbols-outlined{
+    font-size: 16px!important;
+}
