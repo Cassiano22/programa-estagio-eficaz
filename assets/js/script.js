@@ -75,5 +75,51 @@ $(document).ready(function(){
             
             
         }); */
+		/*$.ajax({
+                method: "POST",
+                url: "/web_api/cart/",
+                contentType: "application/json; charset=utf-8",
+                data: '{"Cart":{'+dados+'}}',
+                beforeSend: function(){
+                    console.log(dados);
+                }
+            }).done(function(data){
+                
+                console.log("Produto adicionado!");
+                
+                // Update carrinho 
+                var session = $('html').attr('data-session');
+                $.ajax({
+                    url: "/web_api/cart/"+session,
+                    type: "GET",
+                    dataType: "json",
+                    beforeSend: function(){
+                        console.log('Buscando produtos no carrinho...');
+                    },
+                    success: function (data) {
+                        $.each(data, function(k, itens){
+                            $.each(itens, function(i, item){
+                                $('.carrinho-preview .carrinho-preview-body').append(
+                                    '<div class="item-carrinho">'+
+                                        '<a href="'+item.product_url['https']+'">'+
+                                            '<div><img src="'+item.product_image['https']+'" width="90"><span>'+item.quantity+'</span></div>'+
+                                            '<div>'+item.product_name+'</div>'+
+                                            '<div>'+item.price+'</div>'+
+                                        '</a>'+
+                                    '</div>'
+                                );
+                            });
+                        });
+                    },
+                    error: function(data){
+                        alert("Não possui nenhum produto no carrinho!");
+                    },
+                    complete: function(){
+                        console.log("Busca finalizada!");
+                    }
+                    
+                });
+    
+            });*/
     });
 });
