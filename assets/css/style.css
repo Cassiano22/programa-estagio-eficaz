@@ -60,3 +60,6 @@ body{
 .material-symbols-outlined{
     font-size: 16px!important;
 }
+.id_user{
+    display: none;
+}
