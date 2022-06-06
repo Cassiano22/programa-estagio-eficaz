@@ -26,34 +26,23 @@ $(document).ready(function(){
                     console.log(item);
                     $('.table tbody').append(
                     '<tr>'+
-                        '<td class="id_user">'+item.id+'</td>'+
                         '<td>'+item.nome+'</td>'+
                         '<td>'+item.email+'</td>'+
                         '<td><span>'+item.rua+', '+item.numero+'</span><span>'+item.bairro+'</span><span>'+item.cep+'</span><span>'+item.cidade+' ('+item.uf+')</span></td>'+
                         '<td>'+item.telefone+'</td>'+
                         '<td class="text-center">'+
-                            '<button type="submit" class="btn btn-success"><span class="material-symbols-outlined editar">edit</span></button>'+
-                            '<button type="submit" class="btn btn-danger"><span class="material-symbols-outlined deletar">delete</span></button>'+
+                            '<button type="submit" class="btn btn-success"><span class="material-symbols-outlined">edit</span></button>'+
+                            '<button type="submit" class="btn btn-danger"><span class="material-symbols-outlined">delete</span></button>'+
                         '</td>'+
                     '</tr>'
                     );
                 });
-
             }
             
         });
-        setTimeout(function(){
-            $('.editar').on('click', function(){
-                var id_user = $(this).parents('tr').find(' > .id_user').text();
-                alert(id_user);
-        
-            });
-        }, 1000);
     });
 
-    
-   /*  $('.cadastrar').on('click', function(){
-        console.log("aqui!");
+    $('.cadastrar').on('click', function(){
         var dados = [];
         $('.formulario-cadastro input').each(function(k){
             var name = $(this).attr('name');
@@ -65,19 +54,72 @@ $(document).ready(function(){
             }
         });
         
+            
+        
+        $.post(
+            "https://estagio.eficazmarketing.com/api/user/", //Required URL of the page on server
+            dados,
+            function(response,status)
+            {
+               console.log(response);
+               console.log(status);  	
+            }
+         );
         // Cadastrar 
-        $.ajax({
+        /* $.ajax({
             url: "https://estagio.eficazmarketing.com/api/user/",
             type: "POST",
-           // dataType: "json",
-            data: {dados},
-            beforeSend : function(){
-                console.log("ENVIANDO...");
-            },         
-        }).done(function(mensagem){
-            console.log(mensagem);
-        }).fail(function(jqXHR, textStatus, mensagem){
-            alert(mensagem)
-        });
-    }); */
+            dataType: "json",
+            data: dados,
+            success: console.log('Cadastrado com sucesso!')
+            
+            
+        }); */
+		/*$.ajax({
+                method: "POST",
+                url: "/web_api/cart/",
+                contentType: "application/json; charset=utf-8",
+                data: '{"Cart":{'+dados+'}}',
+                beforeSend: function(){
+                    console.log(dados);
+                }
+            }).done(function(data){
+                
+                console.log("Produto adicionado!");
+                
+                // Update carrinho 
+                var session = $('html').attr('data-session');
+                $.ajax({
+                    url: "/web_api/cart/"+session,
+                    type: "GET",
+                    dataType: "json",
+                    beforeSend: function(){
+                        console.log('Buscando produtos no carrinho...');
+                    },
+                    success: function (data) {
+                        $.each(data, function(k, itens){
+                            $.each(itens, function(i, item){
+                                $('.carrinho-preview .carrinho-preview-body').append(
+                                    '<div class="item-carrinho">'+
+                                        '<a href="'+item.product_url['https']+'">'+
+                                            '<div><img src="'+item.product_image['https']+'" width="90"><span>'+item.quantity+'</span></div>'+
+                                            '<div>'+item.product_name+'</div>'+
+                                            '<div>'+item.price+'</div>'+
+                                        '</a>'+
+                                    '</div>'
+                                );
+                            });
+                        });
+                    },
+                    error: function(data){
+                        alert("Não possui nenhum produto no carrinho!");
+                    },
+                    complete: function(){
+                        console.log("Busca finalizada!");
+                    }
+                    
+                });
+    
+            });*/
+    });
 });
