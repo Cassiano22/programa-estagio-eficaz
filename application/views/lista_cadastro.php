@@ -19,8 +19,8 @@
                 <td><span>Rua Tereza FOntanelli, 69</span><span>Jd. dos Lírios</span><span>17509-340</span><span>Marília (SP)</span></td>
                 <td>14997888222</td>
                 <td class="text-center">
-                    <button type="submit" class="btn btn-success"><span class="material-symbols-outlined editar">edit</span></button>
-                    <button type="submit" class="btn btn-danger"><span class="material-symbols-outlined deletar">delete</span></button>
+                    <button type="submit" class="btn btn-success editar"><span class="material-symbols-outlined">edit</span></button>
+                    <button type="submit" class="btn btn-danger deletar"><span class="material-symbols-outlined">delete</span></button>
                 </td>
             </tr>
             </tbody>

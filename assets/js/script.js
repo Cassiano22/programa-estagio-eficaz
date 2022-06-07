@@ -89,14 +89,30 @@ $(document).ready(function(){
                         '<td><span>'+item.rua+', '+item.numero+'</span><span>'+item.bairro+'</span><span>'+item.cep+'</span><span>'+item.cidade+' ('+item.uf+')</span></td>'+
                         '<td>'+item.telefone+'</td>'+
                         '<td class="text-center">'+
-                            '<button type="submit" class="btn btn-success"><span class="material-symbols-outlined">edit</span></button>'+
-                            '<button type="submit" class="btn btn-danger"><span class="material-symbols-outlined">delete</span></button>'+
+                            '<button type="submit" class="btn btn-success editar"><span class="material-symbols-outlined">edit</span></button>'+
+                            '<button type="submit" class="btn btn-danger deletar"><span class="material-symbols-outlined">delete</span></button>'+
                         '</td>'+
                     '</tr>'
                     );
                 });
             }
         });
+        setTimeout(function(){ 
+            $('.deletar').on('click', function(){
+                var id = $(this).parents('tr').find('.id_user').text();
+                $.ajax({
+                    url: "https://estagio.eficazmarketing.com/api/user/"+id,
+                    type: "DELETE",
+                    dataType: "json",
+                    success: function(data){
+                        $(data).each(function(k, item){
+                            alert(item.message);
+                        });
+                    }
+                });
+                $(this).parents('tr').fadeOut(1500);
+            });
+        }, 1000);
     });
 
     $('.cadastrar').on('click', function(){
@@ -166,5 +182,6 @@ $(document).ready(function(){
             });
         }
     });
-        
+    
+    
 });
