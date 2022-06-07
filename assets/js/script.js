@@ -1,4 +1,44 @@
 $(document).ready(function(){
+
+    $.ajax({
+        url: "https://estagio.eficazmarketing.com/api/user/",
+        type: "GET",
+        dataType: "json",
+        success: function(data){
+            $(data).each(function(k, item){
+                console.log(item);
+                $('.table tbody').append(
+                '<tr>'+
+                    '<td class="id_user">'+item.id+'</td>'+
+                    '<td>'+item.nome+'</td>'+
+                    '<td>'+item.email+'</td>'+
+                    '<td><span>'+item.rua+', '+item.numero+'</span><span>'+item.bairro+'</span><span>'+item.cep+'</span><span>'+item.cidade+' ('+item.uf+')</span></td>'+
+                    '<td>'+item.telefone+'</td>'+
+                    '<td class="text-center">'+
+                        '<button type="submit" class="btn btn-success"><span class="material-symbols-outlined">edit</span></button>'+
+                        '<button type="submit" class="btn btn-danger"><span class="material-symbols-outlined">delete</span></button>'+
+                    '</td>'+
+                '</tr>'
+                );
+            });
+        }
+    });
+
+    setTimeout(function(){
+        var maior = 0;
+        $('.id_user').each(function(){
+            var id_user = $(this).text();
+            if(maior < id_user){
+                maior = id_user;
+            }
+        });
+        maior++;
+        $('.cadastro .formulario-cadastro #id').val(maior);
+           
+
+    }, 1000);
+
+
     $('.aba-cadastro').on('click', function(){
         if(!$('.cadastro.wrapper').hasClass('show')){
             $(this).addClass('active');
@@ -6,8 +46,25 @@ $(document).ready(function(){
             $('.lista.wrapper').removeClass('show');
             $('.aba-lista').removeClass('active');
         }
+        $('#cep').on('change', function(){
+            var urlCep = "https://viacep.com.br/ws/"+$(this).val()+"/json";
+            $.ajax({
+                url: urlCep,
+                type: "GET",
+                dataType: "json",
+                success: function(data){
+                    $(data).each(function(k, item){
+                        $('#rua').val(item.logradouro);
+                        $('#bairro').val(item.bairro);
+                        $('#cidade').val(item.localidade);
+                        $('#uf').val(item.uf);
+                    });
+                }
+            });
+        });
         
     });
+
     $('.aba-lista').on('click', function(){
         if(!$('.lista.wrapper').hasClass('show')){
             $(this).addClass('active');
@@ -26,6 +83,7 @@ $(document).ready(function(){
                     console.log(item);
                     $('.table tbody').append(
                     '<tr>'+
+                        '<td class="id_user">'+item.id+'</td>'+
                         '<td>'+item.nome+'</td>'+
                         '<td>'+item.email+'</td>'+
                         '<td><span>'+item.rua+', '+item.numero+'</span><span>'+item.bairro+'</span><span>'+item.cep+'</span><span>'+item.cidade+' ('+item.uf+')</span></td>'+
@@ -38,56 +96,41 @@ $(document).ready(function(){
                     );
                 });
             }
-            
         });
     });
 
     $('.cadastrar').on('click', function(){
-        var dados = [];
-        $('.formulario-cadastro input').each(function(k){
+        var dados = '"id":'+$('.formulario-cadastro #id').val();
+        var cont = 0;
+        $('.formulario-cadastro input').each(function(){
             var name = $(this).attr('name');
-            dados[name] = $(this).val();
-            if(dados[name] == '' && name != 'complemento'){
+            var valor = $(this).val();
+            if(valor == '' && name != 'complemento'){
                 $(this).focus();
-                console.log("Aqui!");
+                console.log("Campo obrigatório!");
                 return false;
             }
+
+            dados = dados+',"'+name+'":'+'"'+valor+'"';
+
+            cont++;
         });
         
-            
-        
-        $.post(
-            "https://estagio.eficazmarketing.com/api/user/", //Required URL of the page on server
-            dados,
-            function(response,status)
-            {
-               console.log(response);
-               console.log(status);  	
-            }
-         );
-        // Cadastrar 
-        /* $.ajax({
-            url: "https://estagio.eficazmarketing.com/api/user/",
-            type: "POST",
-            dataType: "json",
-            data: dados,
-            success: console.log('Cadastrado com sucesso!')
-            
-            
-        }); */
-		/*$.ajax({
+        if(cont >= 9){
+            console.log(dados);
+            $.ajax({
                 method: "POST",
-                url: "/web_api/cart/",
+                url: "https://estagio.eficazmarketing.com/api/user/",
                 contentType: "application/json; charset=utf-8",
-                data: '{"Cart":{'+dados+'}}',
+                data: '{'+dados+'}',
                 beforeSend: function(){
                     console.log(dados);
                 }
             }).done(function(data){
                 
-                console.log("Produto adicionado!");
+                console.log("Usuário cadastrado!");
                 
-                // Update carrinho 
+                /* // Update carrinho 
                 var session = $('html').attr('data-session');
                 $.ajax({
                     url: "/web_api/cart/"+session,
@@ -118,8 +161,10 @@ $(document).ready(function(){
                         console.log("Busca finalizada!");
                     }
                     
-                });
-    
-            });*/
+                }); */
+
+            });
+        }
     });
+        
 });
