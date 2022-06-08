@@ -63,3 +63,10 @@ body{
 .id_user{
     display: none;
 }
+.mensagem{
+    display: none;
+    position: absolute;
+    width: 25rem;
+    right: 10px;
+    top: 10px;
+}

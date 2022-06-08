@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-5">
                 <label for="bairro" class="form-label">Bairro</label>
-                <input type="text" class="form-control" id="bairro" name="bairro" required>
+                <input type="text" class="form-control" id="bairro" name="bairro" placeholder="Bairro" required>
             </div>
             <div class="col-2">
                 <label for="numero" class="form-label">Número</label>
@@ -52,7 +52,8 @@
                 <input type="text" class="form-control uf" id="uf" name="uf" maxlength="2" placeholder="Estado" required>
             </div>
             <div class="col-12">
-                <button type="button" class="btn btn-info cadastrar">Cadastrar</button>
+                <button type="button" class="btn btn-success cadastrar">Cadastrar</button>
+                <button type="button" class="btn btn-success salvar" style="display: none;">Salvar</button>
             </div>
             </form>
     </div>
